@@ -26,7 +26,9 @@ class ProjectActiveCameraBackgroundImage(bpy.types.Operator):
     def execute(self, context):
         camera = context.scene.camera
         bgimage = camera.data.background_images[0]
+        bgimage.image.gl_load(frame=bgimage.image_user.frame_current)
         bpy.ops.paint.project_image(image=bgimage.image.name)
+        bgimage.image.gl_free()
         return { "FINISHED" }
     #end execute
     
